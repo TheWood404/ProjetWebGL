@@ -1,0 +1,22 @@
+# Checklist projet webGL
+
+- [ ] Mise en page de la page web
+- [ ] Paragraphe(s) d'explications techniques
+- [ ] Légèreté du dossier (<2Mo)
+- [ ] Géométrie
+- [ ] Couleur/Transparence
+- [ ] Eclairage
+- [ ] Ombres portées
+- [ ] Position de la caméra
+- [ ] Brouillard
+- [ ] Effet miroir
+- [ ] Texture classique
+- [ ] Texture avec transparence
+- [ ] Sprites
+- [ ] Environment map
+- [ ] Skybox
+- [ ] specular/normal maps
+- [ ] Shaders
+- [ ] Interaction par GUI
+- [ ] Animation
+- [ ] Tweening
