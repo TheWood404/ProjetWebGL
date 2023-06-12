@@ -97,6 +97,16 @@ function drawHelpers() {
 	Coordinates.drawGrid({size:1000,scale:0.01});
 }
 
+//ajout de la skybox
+function createSkyBox() {
+    scene.background = new THREE.CubeTextureLoader()
+    .setPath( 'skybox/penguins/' )
+    .load( ['sun_bk.jpg', 'sun_ft.jpg',
+            'sun_up.jpg', 'sun_dn.jpg',
+            'sun_rt.jpg', 'sun_lt.jpg' ]);
+    
+}
+
 //ajout de la table
 var loader = new OBJLoader();
 var textureLoader = new THREE.TextureLoader();
@@ -203,6 +213,7 @@ try {
 	drawHelpers();
 	addToDOM();
 	animate();
+    createSkyBox();
 } catch(e) {
 	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
 	$('#webGL').append(errorReport+e);
