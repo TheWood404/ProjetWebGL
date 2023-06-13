@@ -3,6 +3,10 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {dat} from './lib/dat.gui.min.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+
+
 var camera, renderer;
 var windowScale;
 window.scene = new THREE.Scene();
@@ -100,39 +104,32 @@ function drawHelpers() {
 //ajout de la skybox
 function createSkyBox() {
     scene.background = new THREE.CubeTextureLoader()
-    .setPath( 'skybox/penguins/' )
-    .load( ['sun_bk.jpg', 'sun_ft.jpg',
-            'sun_up.jpg', 'sun_dn.jpg',
-            'sun_rt.jpg', 'sun_lt.jpg' ]);
+    .setPath( 'skybox/' )
+    .load(['sunft.jpg','sunbk.jpg',
+            'sunup.jpg','sundn.jpg',
+            'sunrt.jpg','sunlf.jpg']);
     
 }
 
-//ajout de la table
-var loader = new OBJLoader();
-var textureLoader = new THREE.TextureLoader();
+var mtlLoader = new MTLLoader();
+mtlLoader.load('textures/Desk_OBJ.mtl', function (materials) {
+    materials.preload();
+    
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
 
-loader.load('objet/table.obj', function (object) {
-    // L'objet a été chargé avec succès
-    // Vous pouvez ajouter l'objet à votre scène WebGL ici
-    scene.add(object);
-
-    // Mettre la table à l'échelle
-    object.scale.set(1, 1, 0.9);
-
-    // Mettre la table à la position
-    object.position.set(0, 200, -11);
-
-    // Charger la texture et l'appliquer à l'objet
-    textureLoader.load('texture/wood.png', function (texture) {
-        object.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
-                child.material.map = texture;
-            }
-        });
+    objLoader.load('objet/table.obj', function (object) {
+        scene.add(object);
+        object.scale.set(1, 1, 0.9);
+        object.position.set(0, 200, -11);
     });
 });
 
+var loader = new OBJLoader();
+
 //ajout de la nape
+
+/* var textureLoader = new THREE.TextureLoader();
 loader.load('objet/nape.obj', function (object) {
     // L'objet a été chargé avec succès
     // Vous pouvez ajouter l'objet à votre scène WebGL ici
@@ -147,16 +144,33 @@ loader.load('objet/nape.obj', function (object) {
     object.rotation.y = Math.PI / 2;
 
     // Charger la texture et l'appliquer à l'objet
-    textureLoader.load('texture/nape.png', function (texture) {
+    textureLoader.load('textures/nape.png', function (texture) {
         object.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
                 child.material.map = texture;
-            }
+        }
         });
-    });
+     });
 
+}); */
+
+var mtlLoader = new MTLLoader();
+mtlLoader.load('textures/nape.mtl', function (materials) {
+    materials.preload();
+    
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/nape.obj', function (object) {
+        scene.add(object);
+        object.scale.set(90, 100, 90);
+        object.rotation.y = Math.PI / 2;
+
+        object.position.set(265, 100, -37);
+    });
 });
 
+/*
 //ajout du bowl
 loader.load('objet/bowl.obj', function (object) {
     // L'objet a été chargé avec succès
@@ -172,15 +186,23 @@ loader.load('objet/bowl.obj', function (object) {
     object.rotation.y = Math.PI / 2;
 
     // Charger la texture et l'appliquer à l'objet
-    textureLoader.load('texture/osier.png', function (texture) {
+     textureLoader.load('textures/osier.png', function (texture) {
         object.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
                 child.material.map = texture;
-            }
+           }
         });
     });
 
+}); */
+
+var fbxLoader = new FBXLoader();
+fbxLoader.load('objet/bowl1_low.fbx', function (object) {
+    scene.add(object);
+    object.scale.set(4, 4, 4);
+    object.position.set(20, 248, 10);
 });
+
 
 //ajout de la scène au DOM
 function addToDOM() {
