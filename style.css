@@ -1,0 +1,59 @@
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Assurez-vous d'avoir une hauteur définie pour centrer verticalement */
+    margin-bottom: 20px;
+    background-color: antiquewhite;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+  }
+
+  .explication {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    text-align: justify;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 20px;
+    background-color: antiquewhite;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+  }
+
+  .explication-texte {
+    text-align: justify;
+
+    padding-left: 70px; /* Ajoute un espacement de 20 pixels à gauche du texte */
+    padding-right: 70px; /* Ajoute un espacement de 20 pixels à droite du texte */
+  }
+
+  .titre-principal {
+    font-family: "Roboto", sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000; /* Choisissez une couleur qui correspond à votre design */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .sous-titre {
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000; /* Choisissez une couleur qui correspond à votre design */
+    letter-spacing: 1px;
+  }
+  
+      
+  
+  
+  .image-container {
+    margin-right: 10px; 
+  }
+  

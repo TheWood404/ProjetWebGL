@@ -242,6 +242,7 @@ try {
 }
 
 
-var container = document.createElement( 'div' );
-document.body.appendChild( container );
-container.appendChild( renderer.domElement );
+var container = document.createElement('div');
+container.id = 'container';
+document.body.appendChild(container);
+container.appendChild(renderer.domElement);
