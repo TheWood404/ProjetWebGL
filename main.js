@@ -33,19 +33,30 @@ const cubeRenderTarget = new THREE.WebGLCubeRenderTarget( 1024, { format: THREE.
 
 //parametre du menu
 function setupGui() {
-    //effect pour le menu fov
-	effectController = {
+    // Paramètres du menu
+    effectController = {
+        fov: 45,
+        opacity: 1.0,
+        normalMapIntensity: 1.0,
+        showGrid: true,
+        enableShadows: true,
+        showWireframe: false,
+        showSprites: true // Option pour afficher ou masquer les sprites
     };
+
     var gui = new dat.GUI();
-    effectController.fov = 45;
-    gui.add( effectController, "fov", 0, 180, 5 ).name("Field of View").onChange( function() {
+
+    // Option pour le champ de vision (FOV)
+    gui.add(effectController, "fov", 0, 180, 5).name("Field of View").onChange(function() {
         camera.fov = effectController.fov;
         camera.updateProjectionMatrix();
-    }
-    );
-
+    });
     
-
+    // Option pour afficher ou masquer les sprites
+    gui.add(effectController, "showSprites").name("Show Sprites").onChange(function(value) {
+        // Afficher ou masquer les sprites ici
+        toggleSpritesVisibility(value);
+    });
 }
 
 //initialisation de la caméra
@@ -154,6 +165,15 @@ function sprite(){
     }
 }
 
+function toggleSpritesVisibility(visible) {
+    // Parcourir tous les sprites et les rendre visibles ou invisibles selon la valeur passée en paramètre
+    scene.traverse(function(child) {
+        if (child instanceof THREE.Sprite) {
+            child.visible = visible;
+        }
+    });
+}
+
 //ajout de la skybox
 function createSkyBox() {
     scene.background = new THREE.CubeTextureLoader()
@@ -191,33 +211,6 @@ mtlLoader.load('textures/Desk_OBJ.mtl', function (materials) {
 
 var loader = new OBJLoader();
 
-//ajout de la nape
-
-/* var textureLoader = new THREE.TextureLoader();
-loader.load('objet/nape.obj', function (object) {
-    // L'objet a été chargé avec succès
-    // Vous pouvez ajouter l'objet à votre scène WebGL ici
-    scene.add(object);
-
-    // Mettre la table à l'échelle
-    object.scale.set(90, 100, 90);
-
-    // Mettre la nape sur la table à la bonne position
-    object.position.set(265, 100, -37);
-    //rotation de la nape 90°
-    object.rotation.y = Math.PI / 2;
-
-    // Charger la texture et l'appliquer à l'objet
-    textureLoader.load('textures/nape.png', function (texture) {
-        object.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
-                child.material.map = texture;
-        }
-        });
-     });
-
-}); */
-
 var mtlLoader4 = new MTLLoader();
 mtlLoader4.load('textures/nape.mtl', function (materials) {
     materials.preload();
@@ -246,33 +239,6 @@ mtlLoader4.load('textures/nape.mtl', function (materials) {
         scene.add(object);
     });
 });
-
-
-/*
-//ajout du bowl
-loader.load('objet/bowl.obj', function (object) {
-    // L'objet a été chargé avec succès
-    // Vous pouvez ajouter l'objet à votre scène WebGL ici
-    scene.add(object);
-
-    // Mettre la table à l'échelle
-    object.scale.set(20, 20, 20);
-
-    // Mettre la nape sur la table à la bonne position
-    object.position.set(20, 230, 10);
-    //rotation de la nape 90°
-    object.rotation.y = Math.PI / 2;
-
-    // Charger la texture et l'appliquer à l'objet
-     textureLoader.load('textures/osier.png', function (texture) {
-        object.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
-                child.material.map = texture;
-           }
-        });
-    });
-
-}); */
 
 //Bole de fruits
 
