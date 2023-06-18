@@ -154,8 +154,8 @@ loader.load('objet/nape.obj', function (object) {
 
 }); */
 
-var mtlLoader = new MTLLoader();
-mtlLoader.load('textures/nape.mtl', function (materials) {
+var mtlLoader4 = new MTLLoader();
+mtlLoader4.load('textures/nape.mtl', function (materials) {
     materials.preload();
     
     var objLoader = new OBJLoader();
@@ -198,8 +198,8 @@ loader.load('objet/bowl.obj', function (object) {
 
 //Bole de fruits
 
-var mtlLoader = new MTLLoader();
-mtlLoader.load('textures/fruits.mtl', function (materials) {
+var mtlLoader3 = new MTLLoader();
+mtlLoader3.load('textures/fruits.mtl', function (materials) {
     materials.preload();
     
     var objLoader = new OBJLoader();
@@ -224,12 +224,41 @@ mtlLoader.load('textures/uploads_files_830301_water+glass.mtl', function (materi
 
     objLoader.load('objet/uploads_files_830301_water+glass.obj', function (object) {
         scene.add(object);
-        object.scale.set(40, 40, 40);
+        object.scale.set(10, 10, 10);
         object.rotation.y = Math.PI / 2;
 
-        object.position.set(-50, 230, 500);
+        object.position.set(-100, 240, 50);
     });
 });
+
+//pinceau
+var mtlLoaderp = new MTLLoader();
+mtlLoaderp.load('textures/PaintBrush3.mtl', function (materials) {
+    materials.preload();
+    
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/PaintBrush32.obj', function (object) {
+        scene.add(object);
+        object.scale.set(10, 10, 10);
+        //tourner le pinceau sur la gauche
+        object.rotation.y = 150;
+
+        object.position.set(-70, 251, -40);
+    });
+});
+
+function createGround() {
+    var geometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+    var texture = new THREE.TextureLoader().load('textures/osier.png');
+    var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+    var plane = new THREE.Mesh(geometry, material);
+    plane.rotation.x = Math.PI / 2;
+    plane.position.y = -10;
+    scene.add(plane);
+}
+
 
 
 
@@ -265,6 +294,7 @@ try {
 	addToDOM();
 	animate();
     createSkyBox();
+    createGround();
 } catch(e) {
 	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
 	$('#webGL').append(errorReport+e);
