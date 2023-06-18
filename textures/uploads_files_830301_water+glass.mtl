@@ -1,0 +1,9 @@
+# OBJ Material Export by Luxion KeyShot
+
+newmtl Glass Dense White
+Kd 0 0 0
+Ks 1 1 1
+
+newmtl Liquid Water Ripples
+Kd 0 0 0
+Ks 1 1 1

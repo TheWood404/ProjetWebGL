@@ -1,0 +1,101 @@
+# Blender MTL File: 'fruits.blend'
+# Material Count: 9
+
+newmtl Material
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Material.001
+Ns 73.803701
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.028733 0.028733
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\uploads_files_3018387_fruits++pbr+texture+files\apple_PBR file\food_0006_basecolor_4k.jpg
+map_Ns Textures\uploads_files_3018387_fruits++pbr+texture+files\apple_PBR file\food_0006_roughness_4k.jpg
+
+newmtl Material.002
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Material.003
+Ns 22.778916
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\uploads_files_3018387_fruits++pbr+texture+files\banana_skin.png
+map_d Textures\uploads_files_3018387_fruits++pbr+texture+files\banana_black_spot.png
+
+newmtl bowl
+Ns 423.985539
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.404545 0.404545 0.404545
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd osier.png
+
+
+newmtl grapes
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl orange_body
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl orange_top
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.623302 0.800000 0.079474
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl table
+Ns 781.456621
+Ka 1.000000 1.000000 1.000000
+Kd 0.624199 1.000000 0.549381
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\sougata\\Desktop\\my plan\\blender_beginner\\table\\table_wood_diffuseOriginal.png
+map_Ns C:\\Users\\sougata\\Desktop\\my plan\\blender_beginner\\table\\table_wood_smoothness.png

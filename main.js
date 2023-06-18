@@ -196,12 +196,41 @@ loader.load('objet/bowl.obj', function (object) {
 
 }); */
 
-var fbxLoader = new FBXLoader();
-fbxLoader.load('objet/bowl1_low.fbx', function (object) {
-    scene.add(object);
-    object.scale.set(4, 4, 4);
-    object.position.set(20, 248, 10);
+//Bole de fruits
+
+var mtlLoader = new MTLLoader();
+mtlLoader.load('textures/fruits.mtl', function (materials) {
+    materials.preload();
+    
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/fruits2.obj', function (object) {
+        scene.add(object);
+        object.scale.set(40, 40, 40);
+        object.rotation.y = Math.PI / 2;
+
+        object.position.set(-50, 230, 500);
+    });
 });
+
+//verre
+var mtlLoader = new MTLLoader();
+mtlLoader.load('textures/uploads_files_830301_water+glass.mtl', function (materials) {
+    materials.preload();
+    
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/uploads_files_830301_water+glass.obj', function (object) {
+        scene.add(object);
+        object.scale.set(40, 40, 40);
+        object.rotation.y = Math.PI / 2;
+
+        object.position.set(-50, 230, 500);
+    });
+});
+
 
 
 //ajout de la scène au DOM
