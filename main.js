@@ -52,11 +52,15 @@ function init() {
 	//var canvasHeight = window.innerHeight;
 
 	// RENDERER
+    
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.gammaInput = true;
 	renderer.gammaOutput = true;
 	renderer.setSize(canvasWidth, canvasHeight);
 	renderer.setClearColor( 0x808080, 1.0 );
+    renderer.shadowMap.enabled = true;
+    
+
 
 	// CAMERA
 	// aspect ratio of width of window divided by height of window
@@ -75,31 +79,41 @@ function init() {
 
 }
 
-//ajout de la scène
+// Ajout de la scène
 function fillScene() {
-	window.scene = new THREE.Scene();
+    window.scene = new THREE.Scene();
 
-	// LIGHTS
-	window.scene.add( new THREE.AmbientLight( 0x222222 ) );
+    // LIGHTS
+    window.scene.add(new THREE.AmbientLight(0x222222));
 
-	var light = new THREE.DirectionalLight( 0xFFFFFF, 1.0 );
-	light.position.set( 200, 400, 500 );
+    var light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+    light.position.set(200, 400, 500);
 
-	window.scene.add( light );
+    // Ombre de la lumière
+    light.castShadow = true;
+    light.shadow.mapSize.width = 2048;
+    light.shadow.mapSize.height = 2048;
 
-	light = new THREE.DirectionalLight( 0xFFFFFF, 1.0 );
-	light.position.set( -400, 200, -300 );
+    // Configuration de l'ombre
+    light.shadow.camera.near = 0.5;
+    light.shadow.camera.far = 1500;
+    light.shadow.camera.left = -500;
+    light.shadow.camera.right = 500;
+    light.shadow.camera.top = 500;
+    light.shadow.camera.bottom = -500;
 
-	window.scene.add( light );
+    window.scene.add(light);
 
-	// some cubes
-	
+    light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+    light.position.set(-400, 200, -300);
+
+    window.scene.add(light);
+
+    // Some cubes
+    // ...
 }
 
-//carreau d'aide pour la grille
-function drawHelpers() {
-	Coordinates.drawGrid({size:1000,scale:0.01});
-}
+
 
 //ajout de la skybox
 function createSkyBox() {
@@ -122,8 +136,13 @@ mtlLoader.load('textures/Desk_OBJ.mtl', function (materials) {
         scene.add(object);
         object.scale.set(1, 1, 0.9);
         object.position.set(0, 200, -11);
+
+        // Activer les ombres pour la table
+        object.castShadow = true;
+        object.receiveShadow = true;
     });
 });
+
 
 var loader = new OBJLoader();
 
@@ -157,18 +176,32 @@ loader.load('objet/nape.obj', function (object) {
 var mtlLoader4 = new MTLLoader();
 mtlLoader4.load('textures/nape.mtl', function (materials) {
     materials.preload();
-    
+
     var objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
 
     objLoader.load('objet/nape.obj', function (object) {
-        scene.add(object);
         object.scale.set(90, 100, 90);
         object.rotation.y = Math.PI / 2;
 
         object.position.set(265, 100, -37);
+
+        // Ombre
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        // Parcourir tous les enfants de l'objet et activer les ombres
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+
+        scene.add(object);
     });
 });
+
 
 /*
 //ajout du bowl
@@ -201,66 +234,163 @@ loader.load('objet/bowl.obj', function (object) {
 var mtlLoader3 = new MTLLoader();
 mtlLoader3.load('textures/fruits.mtl', function (materials) {
     materials.preload();
-    
+
     var objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
 
     objLoader.load('objet/fruits2.obj', function (object) {
-        scene.add(object);
         object.scale.set(40, 40, 40);
         object.rotation.y = Math.PI / 2;
-
         object.position.set(-50, 230, 500);
+
+        object.traverse(function (child) {
+            if (child instanceof THREE.Mesh) {
+                // Appliquer les ombres sur les matériaux
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+
+        scene.add(object);
     });
 });
 
-//verre
+
 var mtlLoader = new MTLLoader();
 mtlLoader.load('textures/uploads_files_830301_water+glass.mtl', function (materials) {
     materials.preload();
-    
+
     var objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
 
     objLoader.load('objet/uploads_files_830301_water+glass.obj', function (object) {
-        scene.add(object);
         object.scale.set(10, 10, 10);
         object.rotation.y = Math.PI / 2;
 
         object.position.set(-100, 240, 50);
+
+        // Ombre
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        // Parcourir tous les enfants de l'objet et activer les ombres
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+
+        scene.add(object);
     });
 });
+
 
 //pinceau
 var mtlLoaderp = new MTLLoader();
 mtlLoaderp.load('textures/PaintBrush3.mtl', function (materials) {
     materials.preload();
-    
+
     var objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
 
     objLoader.load('objet/PaintBrush32.obj', function (object) {
-        scene.add(object);
         object.scale.set(10, 10, 10);
-        //tourner le pinceau sur la gauche
         object.rotation.y = 150;
 
         object.position.set(-70, 251, -40);
+
+        // Ombre
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        // Parcourir tous les enfants de l'objet et activer les ombres
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+
+        scene.add(object);
     });
 });
+
 
 function createGround() {
     var geometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
     var texture = new THREE.TextureLoader().load('textures/osier.png');
-    var material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+    var material = new THREE.MeshPhongMaterial({ map: texture, side: THREE.DoubleSide });
     var plane = new THREE.Mesh(geometry, material);
     plane.rotation.x = Math.PI / 2;
     plane.position.y = -10;
+
+    // Activer les ombres pour le sol
+    plane.receiveShadow = true;
+
     scene.add(plane);
 }
 
 
+function createWall(width, height, depth, texturePath) {
+    var geometry = new THREE.BoxGeometry(width, height, depth);
+    var texture = new THREE.TextureLoader().load(texturePath);
+    var material = new THREE.MeshPhongMaterial({ map: texture });
+    var wall = new THREE.Mesh(geometry, material);
 
+    // Activer les ombres pour le mur
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+
+    // Positionnement du mur par rapport au sol
+    wall.position.y = height / 2;
+    wall.position.z = -depth / 2;  // Décalage en arrière du sol
+    wall.position.x = -width / 2;  // Décalage vers la gauche du sol
+    // Pivoter le mur
+    wall.rotation.y = Math.PI / 2;
+
+    scene.add(wall);
+}
+
+
+function createRightWall(width, height, depth, texturePath) {
+    var geometry = new THREE.BoxGeometry(width, height, depth);
+    var texture = new THREE.TextureLoader().load(texturePath);
+    var material = new THREE.MeshPhongMaterial({ map: texture, transparent: true });
+    var wall = new THREE.Mesh(geometry, material);
+
+    // Activer les ombres pour le mur
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+
+    // Positionnement du mur à droite du sol
+    wall.position.y = height / 2;
+    wall.position.z = -depth / 2;
+    wall.position.x = width / 2;  // Décalage vers la droite du sol
+    // Pivoter le mur
+    wall.rotation.y = Math.PI / 2;
+
+    scene.add(wall);
+}
+
+
+function createFrontWall(width, height, depth, texturePath, xPos, yPos, zPos) {
+    var geometry = new THREE.BoxGeometry(width, height, depth);
+    var texture = new THREE.TextureLoader().load(texturePath);
+    var material = new THREE.MeshPhongMaterial({ map: texture });
+    var wall = new THREE.Mesh(geometry, material);
+
+    // Activer les ombres pour le mur
+    wall.castShadow = true;
+    wall.receiveShadow = true;
+
+    // Positionnement du mur en face du sol
+    wall.position.x = xPos;
+    wall.position.y = yPos;
+    wall.position.z = zPos;
+
+    scene.add(wall);
+}
 
 //ajout de la scène au DOM
 function addToDOM() {
@@ -280,21 +410,24 @@ function animate() {
 
 //rendu
 function render() {
-	var delta = clock.getDelta();
-	cameraControls.update(delta);
-	renderer.render(window.scene, camera);
+    var delta = clock.getDelta();
+    cameraControls.update(delta);
+    renderer.render(scene, camera);
 }
+
 
 //initialisation
 try {
 	init();
 	fillScene();
 	setupGui();
-	drawHelpers();
 	addToDOM();
 	animate();
     createSkyBox();
     createGround();
+    createWall(1000, 500, 20, 'textures/texturemaison/brick.png');
+    createRightWall(1000, 500, 20, 'textures/texturemaison/brickfenetre.png');
+    createFrontWall(1000, 500, 20, 'textures/texturemaison/brick.png', 0, 250, 500);
 } catch(e) {
 	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
 	$('#webGL').append(errorReport+e);
