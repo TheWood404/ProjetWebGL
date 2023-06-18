@@ -26,6 +26,11 @@ var bevelRadius = 1.9;	// TODO: 2.0 causes some geometry bug.
 var aspectRatio;
 var eyeTargetScale;
 
+var mirrorCube, mirrorCam; // Mirroir
+
+const cubeRenderTarget = new THREE.WebGLCubeRenderTarget( 1024, { format: THREE.RGBFormat, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter } );
+
+
 //parametre du menu
 function setupGui() {
     //effect pour le menu fov
@@ -59,7 +64,7 @@ function init() {
 	renderer.setSize(canvasWidth, canvasHeight);
 	renderer.setClearColor( 0x808080, 1.0 );
     renderer.shadowMap.enabled = true;
-    
+
 
 
 	// CAMERA
@@ -67,7 +72,9 @@ function init() {
 	aspectRatio = canvasWidth/canvasHeight;
 	// OrthographicCamera( left, right, top, bottom, near, far )
 	camera = new THREE.PerspectiveCamera( 45, aspectRatio, 10, 10000 );
-	camera.position.set( -890, 600, -480 );
+	camera.position.set( 400, 300, 10 );
+    //rotation sur la gauche de la caméra
+    camera.rotation.y = Math.PI / 2;
 
 	// CONTROLS
 	cameraControls = new OrbitControls(camera, renderer.domElement);
@@ -109,11 +116,43 @@ function fillScene() {
 
     window.scene.add(light);
 
-    // Some cubes
-    // ...
+    // Mirroir
+    var cubeGeom = new THREE.BoxGeometry(1000, 300, 1);
+
+    mirrorCam = new THREE.CubeCamera( 1, 1000, cubeRenderTarget   );
+    mirrorCam.position.set(0, 300, 450);
+    scene.add(mirrorCam);
+
+
+    var mirrorCubeMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: cubeRenderTarget.texture } );
+    mirrorCube = new THREE.Mesh( cubeGeom, mirrorCubeMaterial );
+    mirrorCube.position.set(0, 300, 490);
+    scene.add(mirrorCube);
+
 }
 
-
+function sprite(){
+    var disk = new THREE.TextureLoader().load('textures/sprites.png');
+    var material = new THREE.SpriteMaterial({ map: disk });
+    material.color.setHSL(1, 1, 1)
+    for (var i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            for (let k = 0; k < 8; k++) {
+                var particles = new THREE.Sprite(material);
+                var vertex = new THREE.Vector3();
+                // accept the point only if it's in the sphere
+                vertex.x = -1000 + Math.random() * 10 * 100 * k;
+                vertex.y = -1000 + Math.random() * 10 * 100 * j;
+                vertex.z = -1000 + Math.random() * 10 * 100 * i;
+                particles.scale.set(35, 35, 35);
+                particles.position.x = vertex.x;
+                particles.position.y = vertex.y;
+                particles.position.z = vertex.z;
+                scene.add(particles);
+            }
+        }
+    }
+}
 
 //ajout de la skybox
 function createSkyBox() {
@@ -124,6 +163,12 @@ function createSkyBox() {
             'sunrt.jpg','sunlf.jpg']);
     
 }
+
+//ajout d'un brouillard
+function createFog() {
+    scene.fog = new THREE.FogExp2(0x9db3b5, 0.0005);
+}
+
 
 var mtlLoader = new MTLLoader();
 mtlLoader.load('textures/Desk_OBJ.mtl', function (materials) {
@@ -392,6 +437,7 @@ function createFrontWall(width, height, depth, texturePath, xPos, yPos, zPos) {
     scene.add(wall);
 }
 
+
 //ajout de la scène au DOM
 function addToDOM() {
 	var container = document.getElementById('webGL');
@@ -410,9 +456,15 @@ function animate() {
 
 //rendu
 function render() {
+    mirrorCam.visible = false;
+    mirrorCam.update( renderer, scene );
+    mirrorCam.visible = true;
+
     var delta = clock.getDelta();
     cameraControls.update(delta);
-    renderer.render(scene, camera);
+
+
+    renderer.render(window.scene, camera);
 }
 
 
@@ -428,6 +480,9 @@ try {
     createWall(1000, 500, 20, 'textures/texturemaison/brick.png');
     createRightWall(1000, 500, 20, 'textures/texturemaison/brickfenetre.png');
     createFrontWall(1000, 500, 20, 'textures/texturemaison/brick.png', 0, 250, 500);
+    createFog();
+    sprite();
+
 } catch(e) {
 	var errorReport = "Your program encountered an unrecoverable error, can not draw on canvas. Error was:<br/><br/>";
 	$('#webGL').append(errorReport+e);
