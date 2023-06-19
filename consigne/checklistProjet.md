@@ -2,7 +2,7 @@
 
 - [X] Esthetisme
 - [X] Mise en page de la page web
-- [ ] Paragraphe(s) d'explications techniques
+- [X] Paragraphe(s) d'explications techniques
 - [ ] Légèreté du dossier (<2Mo)
 - [X] Géométrie
 - [X] Couleur

@@ -140,6 +140,10 @@ function fillScene() {
     mirrorCube.position.set(0, 300, 490);
     scene.add(mirrorCube);
 
+
+
+    
+
 }
 
 function sprite(){
@@ -404,6 +408,73 @@ function createFrontWall(width, height, depth, texturePath, xPos, yPos, zPos) {
 }
 
 
+//grappe de raisin
+var mtlLoaderr = new MTLLoader();
+mtlLoaderr.load('textures/Textures/10181_Grape-L2.mtl', function (materials) {
+    materials.preload();
+
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/raisins.obj', function (object) {
+
+
+        // Parcourir tous les enfants de l'objet et appliquer la texture
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                var textureLoader = new THREE.TextureLoader();
+                var texture = textureLoader.load('textures/Textures/Grapes_C.jpg');
+                child.material = new THREE.MeshBasicMaterial({ map: texture });
+            }
+
+            object.scale.set(6, 6, 6);
+            object.rotation.y = 20;
+            object.position.set(30, 249, -50);
+        });
+
+        // Ombre
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        scene.add(object);
+    });
+});
+
+
+//grappe de raisin 2
+//grappe de raisin
+var mtlLoaderrr = new MTLLoader();
+mtlLoaderrr.load('textures/Textures/10181_Grape-L2.mtl', function (materials) {
+    materials.preload();
+
+    var objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+
+    objLoader.load('objet/raisins.obj', function (object) {
+        object.scale.set(4, 4, 4);
+        object.rotation.y = 150;
+        object.position.set(-61, 249, -25);
+
+        // Rotation 140
+        object.rotation.y = -20;
+
+        // Parcourir tous les enfants de l'objet et appliquer le matériau violet
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                child.material = new THREE.MeshPhongMaterial({ color: 0x800080 });
+            }
+        });
+
+        // Ombre
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        scene.add(object);
+    });
+});
+
+
+
 //ajout de la scène au DOM
 function addToDOM() {
 	var container = document.getElementById('webGL');
@@ -455,7 +526,3 @@ try {
 }
 
 
-var container = document.createElement('div');
-container.id = 'container';
-document.body.appendChild(container);
-container.appendChild(renderer.domElement);
