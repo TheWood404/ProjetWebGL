@@ -38,7 +38,6 @@
         </div>
         <div class="explication">
             <div id="webGL" class="centre"></div>
-            <img src="naturemorte.jpg" alt="peinture" class="centre">
 
         </div>
         <div class="explication">
@@ -47,5 +46,57 @@
             </div>
             <p class="centre explication-texte">L'origine des natures mortes remonte à plusieurs siècles et trouve ses racines dans l'histoire de l'art. Ce genre artistique, également connu sous le nom de "nature morte" ou "still life" en anglais, a une longue tradition et une importance significative dans le domaine artistique.<br>Aujourd'hui, les natures mortes continuent d'être appréciées et utilisées par de nombreux artistes contemporains. Elles offrent un terrain fertile pour explorer la forme, la couleur, la texture et la symbolique. Elles nous invitent à observer attentivement notre environnement, à apprécier la beauté des objets simples et à méditer sur la nature éphémère de la vie.</p>
           </div>
+        
+        <div class="separ3">
+            <h1>Explications Three.js</h1>
+            <p>Voici comment chaque fonctionnalité a été implémentée dans la scène Three.js :</p>
+        </div>
+            <div class="explication2">
+        <div class="separ">
+            <h2>Eclairage</h2>
+            <p>Un éclairage a été ajouté à la scène en utilisant un objet THREE.DirectionalLight. Cela crée une lumière directionnelle qui simule un éclairage réaliste.</p>
+        
+            <h2>Ombres portées</h2>
+            <p>Les ombres portées sont activées pour les objets qui doivent en produire en utilisant les propriétés object.castShadow et object.receiveShadow. Un objet THREE.SpotLight peut également être utilisé pour créer des ombres plus précises.</p>
+        
+            <h2>Position de la caméra</h2>
+            <p>La caméra est positionnée en utilisant les coordonnées XYZ en utilisant object.position.set(x, y, z). La fonction THREE.PerspectiveCamera est utilisée pour créer une projection perspective.</p>
+        
+            <h2>Brouillard</h2>
+            <p>Un effet de brouillard a été ajouté à la scène en utilisant un objet THREE.Fog. Cela donne une apparence atmosphérique à la scène en dégradant progressivement la couleur des objets à mesure qu'ils s'éloignent.</p>
+        
+            <h2>Effet miroir</h2>
+            <p>Un effet de miroir a été créé en utilisant un objet THREE.Reflector. Cela crée une surface réfléchissante qui simule un miroir. La réflexion est calculée en fonction de la position et de l'angle de la caméra.</p>
+        
+            <h2>Texture classique</h2>
+            <p>Une texture classique a été appliquée à un objet en utilisant un objet THREE.TextureLoader pour charger une image, puis en créant un matériau THREE.MeshBasicMaterial avec la texture chargée. Comme la grappe de raisins verte ou les pommes</p>
+        
+            <h2>Texture avec transparence</h2>
+            <p>Une texture avec transparence a été appliquée à un objet en utilisant une image PNG qui contient un canal alpha. Le matériau THREE.MeshBasicMaterial est configuré avec la propriété transparent définie sur true.</p>
+        </div>
+        <div class="separ">
+            <h2>Sprites</h2>
+            <p>Des sprites ont été ajoutés à la scène en utilisant des objets THREE.Sprite. Les sprites sont des images en 2D qui sont positionnées dans l'espace 3D. Ils peuvent être utilisés pour afficher des éléments tels que des étiquettes ou des icônes.</p>
+        
+            <h2>Skybox</h2>
+            <p>Un skybox a été ajouté à la scène en utilisant un objet THREE.CubeTexture. Cela crée un environnement en utilisant six images qui enveloppent complètement la scène.</p>
+        
+            <h2>Interaction par GUI</h2>
+            <p>Une interface utilisateur graphique (GUI) a été créée en utilisant la bibliothèque dat.GUI. Cela permet à l'utilisateur d'ajuster certains paramètres de la scène en temps réel. Comme le FOV et les Sprites.</p>
+        
+            <h2>Géométrie</h2>
+            <p>Différentes formes géométriques ont été créées en utilisant les objets THREE.BoxGeometry, THREE.SphereGeometry, THREE.CylinderGeometry, etc. Ces géométries sont ensuite utilisées pour créer des objets 3D dans la scène. Comme les 3 murs</p>
+        
+            <h2>Couleur</h2>
+            <p>Les objets sont colorés en utilisant des matériaux THREE.MeshBasicMaterial ou THREE.MeshPhongMaterial avec la propriété color définie sur une couleur spécifique. Cela donne aux objets des couleurs personnalisées. Comme la grappe de raisins violette</p>
+        
+            <h2>Esthétisme</h2>
+            <p>Différentes techniques d'éclairage, de texturage, d'ombrage et de réflexion sont utilisées pour améliorer l'esthétique de la scène. Des choix de couleurs appropriés et une disposition soignée des objets contribuent également à l'esthétique globale. Tout cela permet de reproduire au mieux la peinture</p>
+
+            <h2>PS</h2>
+            <p>Si la scène 3D n'apparaît pas, il suffit de rafraîchir la page. Quinze points de la checklist ont été effectués.<br>GASSMANN Victor</p>
+        </div>
+    </div>
+        </div>
     </body>
 </html>

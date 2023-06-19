@@ -11,6 +11,50 @@
 
   }
 
+  h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.separ3{
+  background-color: antiquewhite;
+  border-radius: 30px;
+  padding: 20px;
+  margin: auto;
+  height: 70px;
+  width: 600px;
+
+}
+
+.separ3 h1 {
+  margin: auto;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+.explication2 {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  display: flex;
+        flex-direction: row;
+}
+
+.separ {
+  background-color: antiquewhite;
+  border-radius: 30px;
+  padding: 20px;
+  margin: 10px;
+  width: 50%;
+  flex: 1;
+}
+
   .explication {
     display: flex;
     align-items: center;
